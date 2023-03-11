@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi tienda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@200&family=Patrick+Hand&family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+
+</head>
+<body>
+    
+    <nav class="navbar justify-content-between nav_atelier  " >
+        <div class="box_logoshop">
+            <img  src="../static/img/upload/{{shop.logo_img}}"  class="mx-4" alt="logo"/>
+        </div>
+        <h2 class="text-white" > {{shop.name}}</h2>
+        {% with messages = get_flashed_messages(category_filter=['uploadlogo']) %}
+        {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% endwith %}
+            <button class="navbar-toggler mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+                aria-controls="offcanvasScrolling">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+            id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header pattern">
+                <div class="box_logo">
+                    <img src="../static/img/upload/{{shop.logo_img}}"/>
+                </div>
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel"> {{shop.name}} </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/myshop">Mi cuenta</a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Subir foto de perfil
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form action="/upload/logo" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" id="uploadfile" name="uploadfile" accept=".jpg,.png">
+                                    </div>
+                                    <input type="submit" value="Subir foto" class="btn btn_form mt-3">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <a class=" btn btn-danger mt-3" href="/logout">Cerrar Sesión</a>
+            </div>
+            <a class=" btn btn-danger mx-5" href="/deleteshop/{{shop.id}}">Eliminar cuenta</a>
+        </div>  
+    </nav>
+    <div class="container my-4">
+        <div class="row ">
+            <div class="col-9">
+                <div  class="row  "> <!--class="card" style="width: 18rem;" -->
+                    {% for product in products %}
+                        <div class="container_products col"> <!--class="card-body" -->
+                            <div class="box_imgproduct">
+                                <img src="{{product.img}}" class="card-img-top" alt="{{product.name}}">
+                                
+                                <p> <i class="fa-solid fa-tag"></i><strong>{{product.price}} COP </strong></p>
+                                <p>{{ product.name }}</p>
+                                <a href="#card{{product.id}}" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="{{ product.name }}" 
+                                data-bs-content="{{product.description_pro}}" data-bs-placement="top">
+                                [Ver más...]   </a> 
+                            </div>
+                            <div class="row ">
+                                <a href="/edit/product/{{product.id}}" class="btn btn_inic m-3 col text-white btn-outline-secondary">Editar</a>
+                                <a href="/delete/product/{{product.id}}" class="btn btn_inic m-3 col text-white btn-outline-secondary">Borrar</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-3">
+                <a href="/new/product" class="btn btn_inic m-3 text-white btn-outline-secondary">Crear nuevo producto</a>
+                <a href="/view/proposals/{{shop.id}}" class="btn btn_inic m-3 text-white btn-outline-secondary">Ver Propuestas de  clientes</a>
+                <a href="#" class="btn btn_inic m-3 text-white btn-outline-secondary">Administrar Pedidos</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/a12014d203.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script>
+
+        // activar tooltip (el de los botones agregar al carrito y favs)
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        // activar popover (el de la descripción larga del producto)
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    </script>
+
+
+</body>
+</html>

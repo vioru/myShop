@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inicio usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@200&family=Patrick+Hand&family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+</head>
+
+<body class="body">
+    <nav class="nav_atelier navbar  ">
+        <div class="container-fluid">
+            <p></p>
+            <div class="box_atelier logo_userwall">
+
+                <img src="../static/img/logoatelier.png" class=" mx-4" />
+            </div>
+
+
+            {% with messages = get_flashed_messages(category_filter=['uploadimg']) %}
+            {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                <p>{{message}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <button class="navbar-toggler btn_white" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+            <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header pattern">
+                    <div class="box_logo">
+                        <img src="../static/img/upload/{{ user.profile_img }}" width="100px" height="70px"
+                            class=" mx-4  " />
+                    </div>
+                    <h4 class="offcanvas-title" id="offcanvasNavbarLabel">{{user.first_name + ' ' +user.last_name }}
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/myacount">Mi cuenta</a>
+                        </li>
+                        <li class="nav-item">
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Subir foto de perfil
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <form action="/upload/logo/user" method="POST" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input type="file" id="uploadprofile" name="uploadprofile"
+                                                accept=".jpg,.png">
+                                            <input type="submit" value="Subir foto" class="btn btn_form mt-3">
+                                        </div>
+
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <a class=" btn btn-danger mt-3" href="/logout">Cerrar Sesión</a>
+                </div>
+                <a class=" btn btn-danger mx-5" href="/deleteuser/{{user.id}}">Eliminar cuenta</a>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-3">
+                <div class="list-group">
+                    <a href="/mywalluser/0" class="list-group-item  nav_atelier text-white" aria-current="true">
+                        Todas las Categorias
+                    </a>
+                    <a href="/mywalluser/1" class="list-group-item list-group-item-action hover_atelier">Dama</a>
+                    <a href="/mywalluser/2" class="list-group-item list-group-item-action">Masculino</a>
+                    <a href="/mywalluser/3" class="list-group-item list-group-item-action">Accesorios</a>
+                    <a href="/mywalluser/4" class="list-group-item list-group-item-action ">Bolsos y Calzado</a>
+                </div>
+            </div>
+
+            
+            <div class="col-8 ">
+                {% for shop in shops %}
+                <div class="card text-center mt-4">
+                    <div class="card-header">
+                        <h2>{{shop.name}}</h2>
+                    </div>
+                    <div class="card-body pattern">
+                        <h5 class="card-title">{{shop.description_shop}}</h5>
+                        <div class="box_logo mb-3 ">
+                            <img src="../static/img/upload/{{shop.logo_img}}" class="card-img-top shad_logo"
+                                alt="logo {{shop.name}}">
+
+                        </div>
+                        <a href="/shop/{{shop.id}}" class="btn btn-outline-secondary nav_atelier text-white"> Entrar </a>
+                    </div>
+
+                    <div class="d-flex justify-content-center card-footer ">
+                        {% if shop.list_products|length > 0 %}
+                            {% for i in range(3) %}
+                                {% if shop.list_products|length >= i+1 %}
+                                    <div class="col-3 box_walluser">
+
+                                        <img src="{{shop.list_products[i].img}}" class="card-img-top " width="100px" height="70px"
+                                            alt="">
+
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

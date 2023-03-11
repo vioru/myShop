@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@200&family=Patrick+Hand&family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <nav class="navbar justify-content-between nav_atelier "  >
+
+        <div class="box_logoshop">
+            <img  src="../static/img/upload/{{shop.logo_img}}"  class="mx-4" alt="logo"/>
+        </div>
+
+        <h2 class="text-white" > {{shop.name}}</h2>
+
+        {% with messages = get_flashed_messages(category_filter=['uploadlogo']) %}
+        {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% endwith %}
+        
+        <div>
+            <button class="navbar-toggler mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+                aria-controls="offcanvasScrolling">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        
+        
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+            id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header pattern">
+                <div class="box_logo">
+                    <img src="../static/img/upload/{{shop.logo_img}}"/>
+                </div>
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel"> {{shop.name}} </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            
+            
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/myshop">Mi cuenta</a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Subir foto de perfil
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form action="/upload/logo" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" id="uploadfile" name="uploadfile" accept=".jpg,.png">
+                
+                                    </div>
+                                    <input type="submit" value="Subir foto" class="btn btn_form mt-3">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <a class=" btn btn-danger mt-3" href="/logout">Cerrar Sesión</a>
+            </div>
+            <a class=" btn btn-danger mx-5" href="/deleteshop/{{shop.id}}">Eliminar cuenta</a>
+
+
+
+        </div>
+       
+
+
+        
+
+
+    </nav>
+
+
+    <div class="container">
+        
+        {% with messages = get_flashed_messages(category_filter=['product']) %}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+            <div class="col-md-6 offset-md-3">
+                
+                <form action="/create/product" method="post">
+                    <input type="hidden" name="shop_id" value="{{shop.id}}">
+                    <div class="form-group">
+                        <label for="name">Nombre </label>
+                        <input type="text" id="task" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="description_pro">Descripción</label>
+                        <textarea class="form-control " name="description_pro" rows="4" cols="15"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Precio</label>
+                        <input type="number" step=".001" id="price" name="price" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Estado</label>
+                        <select class="form-select" name="status" >
+                            <option value="0" hidden selected>Seleccion una opción</option>
+                            <option value="1">Nuevo</option>
+                            <option value="2">Promoción</option>
+                            <option value="3">Agotado</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="img">insertar url de imagen </label>
+                        <input type="text" id="img" name="img" class="form-control">
+                    </div>
+
+                    <input type="submit" class="btn btn_form m-3" value="Guardar">
+                    <a href="/myshop" class="btn btn-danger  m-3">Cancelar</a>
+                </form>
+
+            
+        </div>
+
+
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

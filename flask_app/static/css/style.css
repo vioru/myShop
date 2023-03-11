@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Anek Malayalam', sans-serif;
+
+}
+
+.pattern { background-image: url(../img/back_ground_grey.jpg);
+
+}
+
+.nav_atelier{
+    background-color:#6d40f6;
+}
+
+.btn_white{
+    color: white;
+}
+
+.btn_inic{
+    background-color: #5025d1;
+    border: #5025d1;
+
+}
+
+.btn_form{
+    background-color: #00b090;
+    border: #00b090;
+}
+
+.box_logoshop img{
+    width: auto;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.box_atelier img{
+    width: auto;
+    height: 90px;
+}
+
+.logo_userwall img{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+}
+
+.shad_logo{
+    box-shadow: 6px 6px 6px rgba(179, 179, 179, 0.477);
+}
+
+.form_atelier{
+    box-shadow: 6px 6px 6px rgba(179, 179, 179, 0.477);
+    padding: 15px;
+    border-radius: 2%;
+    
+}
+
+.box_walluser img{
+    width: 100px;
+    height:auto;
+}
+
+.box_imguseraccount img{
+    width: 150px ;
+    height: 180px;
+    border-radius: 2%;
+    object-fit: cover;
+    
+
+}
+
+.container_box{
+    height: 250px;
+    border-radius: 2%;
+    object-fit: cover;
+}
+@supports(object-fit: cover){
+    .box_logo img{
+        width: 80px;
+        height: auto;
+        object-fit: cover;
+        object-position: center center;
+    }
+}
+
+.box_logo img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+}
+@supports(object-fit: cover){
+    .box_logo img{
+        width: 80px;
+        height: auto;
+        object-fit: cover;
+        object-position: center center;
+    }
+}
+
+.container_products{
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap:wrap;
+    max-width: 1000px;
+    border-radius: 2%;
+    box-shadow: 6px 6px 6px rgba(179, 179, 179, 0.477);
+    margin-top: 10px;
+}
+
+.box_imgproduct img{
+    width: 220px ;
+    height: 220px;
+    border-radius: 2%;
+    object-fit: cover;
+    
+}
+
+.construction img{
+
+    width: 800px ;
+    height: auto;
+    margin-left: 160px;
+}
+
+.button-container{
+    display:inline-block;
+    position:relative;
+    }
+
+.button-container img{
+    width: 320px ;
+    height: auto;   
+    }
+    
+.button-container a{
+    position: absolute;
+    bottom:5em;
+    right:8em;
+    color:white;
+    text-transform:uppercase;
+    padding:1em 1.5em;
+    }

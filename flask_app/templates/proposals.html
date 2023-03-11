@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi tienda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@200&family=Patrick+Hand&family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+
+</head>
+
+<body>
+    {% if 'usuario_id' in session: %}
+        <nav class="nav_atelier navbar  " >
+            <div class="container-fluid">
+                <div class="box_logoshop">
+                    <img  src="../static/img/upload/{{shop.logo_img}}" width="100px" height="70px" class="mx-4" alt="logo"/>
+                </div>
+
+                <h2 class="text-white" >Propuestas clientes {{shop.name}}</h2>
+                
+
+                {% with messages = get_flashed_messages(category_filter=['uploadimg']) %}
+                {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header pattern">
+                        <div class="box_logo">
+                        <img src="../static/img/upload/{{user.profile_img}}"  class=" mx-4  " alt="foto de perfil" />
+                        </div>
+                        <h4 class="offcanvas-title" id="offcanvasNavbarLabel">{{user.first_name + ' ' +user.last_name }}</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/myacount">Mi cuenta</a>
+                            </li>
+                            <li class="nav-item">
+
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Subir foto de perfil
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <form action="/upload/logo/user" method="POST" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <input type="file" id="uploadprofile" name="uploadprofile" accept=".jpg,.png">
+                                                <input type="submit" value="Subir foto" class="btn btn_form mt-3">
+                                            </div>
+
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <a class=" btn btn-danger mt-3" href="/logout">Cerrar Sesión</a>
+                    </div>
+                    <a class=" btn btn-danger mx-5" href="/deleteuser/{{user.id}}">Eliminar cuenta</a>
+                </div>
+            </div>
+        </nav>
+
+    {% elif 'shop_id' in session : %}
+
+    <nav class="navbar justify-content-between nav_atelier  " >
+
+        <div class="box_logoshop">
+            <img  src="../static/img/upload/{{shop.logo_img}}"  class="mx-4" alt="logo"/>
+        </div>
+
+        <h2 class="text-white" >Propuestas clientes {{shop.name}}</h2>
+        
+        <div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+                aria-controls="offcanvasScrolling">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        
+        
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+            id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header pattern">
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Sube tu foto de perfil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            
+            
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/myshop">Mi cuenta</a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Subir foto de perfil
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form action="/upload/logo" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" id="uploadfile" name="uploadfile" accept=".jpg,.png">
+                
+                                    </div>
+                                    <input type="submit" value="Subir foto" class="btn btn_form mt-3">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <a class=" btn btn-danger mt-3" href="/logout">Cerrar Sesión</a>
+            </div>
+            <a class=" btn btn-danger mx-5" href="/deleteshop/{{shop.id}}">Eliminar cuenta</a>
+
+
+
+        </div>
+        {% with messages = get_flashed_messages(category_filter=['uploadlogo']) %}
+        {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+
+        
+
+
+    </nav>
+
+    {% endif %}
+
+    <div class="container my-4">
+        <div aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {% if 'usuario_id' in session :%}
+                <li class="breadcrumb-item"><a href="/mywalluser/0">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="/shop/{{shop.id}}">{{shop.name}}</a>
+                </li>
+                {% elif 'shop_id' in session :%}
+                <li class="breadcrumb-item"><a href="/myshop">Inicio</a></li>
+                {% endif %}
+                <li class="breadcrumb-item active" aria-current="page">propuestas {{shop.name}}</li>
+            </ol>
+        </div>
+
+        <div class="alert alert-secondary text-center" role="alert">
+            Vota por tu diseño favorito,Los 3 mas votados haran parte de nuestra siguiente colección
+        </div>
+        <div class="container row">
+            <div class="col-9">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    
+                    {% for proposal in proposals %}
+                    <div class="col" id="card{{proposal.id}}">
+                        <div class="card h-100 ">
+                            
+                            <div class="box_imgproduct">
+                                <img src="{{ proposal.img}}" class="card-img-top" alt="{{proposal.name}}">
+                            </div>
+                            
+                            <div class="card-body">
+                                {{ proposal.name }}<a href="#card{{proposal.id}}" data-bs-toggle="popover"
+                                    data-bs-trigger="hover focus" data-bs-title="{{ proposal.name }}"
+                                    data-bs-content="{{proposal.description_pro}}" data-bs-placement="top">
+                                    [Ver más...] </a>
+                                <br>
+
+
+
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="col">
+
+                                    <div>
+                                        <div class="d-grid gap-2">
+                                            <a href="#" id="fav_btn" class="btn btn-sm btn_inic"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Vota por tu favorito">
+                                                Vota
+                                                {% if proposal.id % 2 == 0 %}
+                                                <i class="fa-regular fa-heart"></i>
+                                                {% else %}
+                                                <i class="fa-solid fa-heart"></i>
+                                                {% endif %}
+
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a12014d203.js" crossorigin="anonymous"></script>
+    <script>
+
+        // activar tooltip (el de los botones agregar al carrito y favs)
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        // activar popover (el de la descripción larga del producto)
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    </script>
+
+</body>
+
+</html>

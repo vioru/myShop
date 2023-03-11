@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edita Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@200&family=Patrick+Hand&family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+</head>
+<body>
+<div class="container row">
+        <div class="alert alert-warning text-center mt-3 mx-5" role="alert">
+            Hola <strong>{{user.first_name +' '+ user.last_name+' '}}</strong>Sabemos que amas nuestros productos y que quieres tenerlos ya en la puerta de tu casa.<br>
+            Por eso seguimos  trabajando arduamente para que pronto puedas acceder a hacer tus compras  <br>
+
+        </div>
+        <a href="/shop/{{shop_id}}" class="btn btn-warning mx-5">Volver a la tienda</a>
+
+        <div class=" row justify-content-center">
+            <div class="construction">
+            <img src="https://parquesygimnasiosbiosaludables.com/wp-content/uploads/2020/10/PAGINA.jpg"  alt="pagina en construcción">
+            </div>
+            
+            
+        </div>
+        
+        
+    </div> 
+    
+
+</body>
+</html>
+
+

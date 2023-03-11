@@ -1,0 +1,3 @@
+id,first_name,last_name,email,password,direction,created_at,updated_at,profile_img
+1,Serena,Tsukino,sailor@moon.com,$2b$12$265V9.UrrQu0wD0/7GckPuTuPwlFscF48By45bfWOPUKvdjqcN94K,"cra 45 # 57-62 ","2022-08-30 00:12:22","2022-09-02 18:59:23",NULL
+2,Jhon,Snow,snow@gmail.com,$2b$12$PURzatfXkY0GbIHslyuWcuBvaqESFNLHVpxEYkcA4HK4h.j0ht21C,"tranvs 56 # 59-01","2022-08-30 01:06:53","2022-09-02 18:59:23",NULL

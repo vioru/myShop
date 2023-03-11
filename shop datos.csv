@@ -1,0 +1,9 @@
+id,name,email_shop,password,category,description_shop,color,created_at,updated_at,logo_img
+1,"Lucia Store",lucistore@gmail.com,$2b$12$pRxKSKpqQGrhHfsOB5RQq.K1//FMf4ng/UHoeLjhG.u04zif1gINi,1,"Ropa de dama juvenil",#6d40f6,"2022-08-30 00:32:47","2022-09-02 00:50:55",NULL
+2,Zeus,zeus@olimpo.com,$2b$12$jd35cbrFrsz4PdoOAX45DeTAXvtkdQcMiI8x7HHQDaqy3HGKQQQFm,2,"Gorras, Camisetas y Bermudas de estilo Urbano",#6d40f6,"2022-08-30 00:35:44","2022-09-01 01:58:41",NULL
+3,"Baul del Joyero",baul@live.com,$2b$12$152OjbfA64sLbjKIGYn0ROsN5yFgA924DjeRfpjsUA4a/WftY6Aum,3,"Accesorios y venta de insumos para bisuteria en oro golfied",#6d40f6,"2022-08-30 00:38:06","2022-09-01 22:06:19",e0b0353c-6f23-4f1b-90a0-28e0734a2049.jpg
+4,"Big Boss",big@gmail.com,$2b$12$fuLAA/zltInWpeejBg.8ROrwbRLdATmSenpcaG0ZWcDu9SJowp7oO,4,"RiÃ±oneras y bolsos de cuero",#6d40f6,"2022-08-30 00:39:14","2022-09-01 01:58:41",NULL
+5,Velez,velez@velez.com,$2b$12$.ri.aiwfToGniR2cH.TQze0SXT9CwVvLd0ejBb6j6He6ltI04vpwC,4,"Morrales, billeteras, manos libres, botas y zapatos",#6d40f6,"2022-08-30 00:41:03","2022-09-01 01:58:41",NULL
+6,Arleth,arleth@hotmail.com,$2b$12$w3eCWbQ1jWx4cVHXKDHPWOyPGDPXtJ50tX5eXH0tfUlt109o1piXu,1,"Ropa para damas plus size, vestidos, pantalones y blusas",#6d40f6,"2022-08-30 00:42:20","2022-09-01 01:58:41",NULL
+7,vioru,vioru@live.com,$2b$12$/F6SmIfGNNugGk7dj.uHcu7/8KM9a/87bd5332vkz2ktiLrymZQOW,1,"Ropa unisex , entre lo urbano y gothico",#6d40f6,"2022-08-30 00:43:27","2022-09-01 01:58:41",NULL
+8,Malevolo,mal@evo.com,$2b$12$i17znvrYST5V6M72Wg.OAOtAv3UNVwgO44J00NDshoKd4kCHmydYS,2,"Lenceria masculina con estampaciÃ³n digital,hacemos personalizados",#6d40f6,"2022-08-30 00:44:54","2022-09-01 01:58:41",NULL

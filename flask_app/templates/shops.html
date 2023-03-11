@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiendas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@200&family=Patrick+Hand&family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+    
+
+
+    
+</head>
+<body>
+    <nav class="navbar  " style="background-color:#6d40f6;">
+        <div class="container-fluid">
+            <div class="box_logoshop">
+                <img  src="../static/img/upload/{{shop.logo_img}}" width="100px" height="70px" class="mx-4" alt="logo"/>
+            </div>
+            
+            <h1 class="text-white">{{shop.name}}</h1> 
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header pattern">
+                    <div class="box_logo">
+                        <img src="../static/img/upload/{{user.profile_img}}"  class=" mx-4  " alt="foto de perfil" />
+                    </div>
+                    <h4 class="offcanvas-title" id="offcanvasNavbarLabel">{{user.first_name + ' ' +user.last_name }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/myacount">Mi cuenta</a>
+                        </li>
+                        <li class="nav-item">
+                            
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Subir foto de perfil
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <form action="/upload/logo/user" method="POST" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input type="file" id="uploadprofile"  name="uploadprofile" accept=".jpg,.png" >                    
+                                            <input type="submit" value="Subir foto" class="btn btn_form mt-3">   
+                                        </div>
+                                        
+                                    </form>    
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                        <a class=" btn btn-danger mt-3" href="/logout">Cerrar Sesión</a>
+                </div>
+                <a class=" btn btn-danger mx-5" href="/deleteuser/{{user.id}}">Eliminar cuenta</a>
+                
+            </div>
+        </div>
+    </nav>
+    <div class="container my-4">
+        <div aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/mywalluser/0">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{shop.name}}</li>
+            </ol>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div  class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for product in products %}
+                    <div class="col" id="card{{product.id}}">
+                        <div class="card h-100 " >                           
+                            <div class="box_imgproduct">
+                                <img src="{{ product.img}}" class="box_imgproduct card-img-top" alt="{{product.name}}">
+                            </div>
+                            <div class="card-body">                               
+                                {{ product.name }}<a href="#card{{product.id}}" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-title="{{ product.name }}" 
+                                    data-bs-content="{{product.description_pro}}" data-bs-placement="top">
+                                    [Ver más...]   </a> 
+                                    <br>
+                                    <i class="fa-solid fa-tag"></i> {{product.price}} COP 
+                                
+                                
+                            </div>
+                                <div class="card-footer bg-transparent">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="d-grid gap-2">
+                                                <a href="/cart/construction/{{shop.id}}/{{product.id}}" class="btn btn-sm btn_form text-white btn-outline-warning"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Agregar al carrito">
+                                                    <i class="fa-solid fa-cart-plus"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="d-grid gap-2 ">
+                                                <a href="/favorite/product/{{product.id}}/{{shop.id}}"  id="fav_btn" class="btn btn-sm btn_inic text-white btn-outline-danger"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Agregar a favoritos">
+                                            
+                                                    {% if product.is_fav  == 0 %}
+                                                        <i class="fa-regular fa-heart "></i>
+                                                    {% else %}
+                                                        <i class="fa-solid fa-heart"></i>
+                                                    {% endif %}
+
+                                                </a> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                             
+                            </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-4">
+                <p>¿Tienes algun diseño en mente?</p>
+                <p>En atelier puedes proponerle a las tiendas el diseño de tus sueños, 
+                    este se somete a votación y si es el mas votado del mes, será producido
+                    para la nuestra nueva colección,tendras una mencion especial y hasta un 50% para adiquirir
+                    este nuevo producto dieñado por ti</p>
+                    <a href="/new/proposal/{{ shop.id }}" class=" btn btn_inic text-white btn-outline-secondary">Crear Propuesta para {{shop.name}}</a>
+                    <a href="/view/proposals/{{shop.id}}" class=" btn btn_inic text-white btn-outline-secondary mt-3 ">Ver las propuestas de {{shop.name}}</a>
+                
+                    <div class="button-container mt-3">
+                    <img src="../static/img/651195220_221991335_1024x576.jpg" />
+                    <a  class="btn btn_inic btn-sm btn-outline-secondary" href="#" alt=“Buy Tickets”>Entrar</a>
+                    </div>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a12014d203.js" crossorigin="anonymous"></script>
+    <script>
+
+        // activar tooltip (el de los botones agregar al carrito y favs)
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        // activar popover (el de la descripción larga del producto)
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    </script>
+
+</body>
+</html>
